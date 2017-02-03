@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+    <div class="ui two column stackable grid">
+        <div class="five wide column">
+
+            <div class="ui segment">
+                <a href="{% url 'webfrontend.main' %}" class="ui primary labeled icon button">
+                    <i class="left arrow icon"></i>
+                    Back
+                </a>
+                <h2>{{ my_slack_user.real_name }}</h2>
+
+                <div class="ui divided list">
+                     <div class="item">
+                         <i class="heartbeat icon"></i>
+                         <div class="content">
+                             <a class="header" href="#onlinestats">Online Stats</a>
+                         </div>
+                     </div>
+
+                     <div class="item">
+                         <i class="spy icon"></i>
+                         <div class="content">
+                             <a class="header" href="#userdetails">User Details</a>
+                         </div>
+                     </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="eleven wide column">
+            <div class="ui segment" id="onlinestats">
+                <h2>Online Stats</h2>
+                <script>
+                    google.charts.load('current', {packages: ['corechart', 'line']});
+                    google.charts.setOnLoadCallback(drawLineColors);
+
+                    function drawLineColors() {
+                          var data = new google.visualization.DataTable();
+                          data.addColumn('datetime', 'X');
+                          data.addColumn('number', 'online');
+
+                          data.addRows([
+                                {%  for s in stats_list %}
+                                    {{ s|safe }}
+                                {% endfor %}
+                          ]);
+
+                          var options = {
+                            hAxis: {
+                              title: 'Time'
+                            },
+                            vAxis: {
+                              title: 'Online',
+                                minValue:0,
+                                maxValue:1,
+                            },
+                            legend: {position: 'none'},
+                              pointSize: 3,
+
+                          };
+
+                          var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                          chart.draw(data, options);
+                        }
+
+
+                </script>
+
+
+
+                  <div id="chart_div"></div>
+
+            </div>
+            <div class="ui segment" id="userdetails">
+                <h2>User Details</h2>
+                <pre>{{ my_slack_user.data }}</pre>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block css %}
+
+  <style type="text/css">
+
+    .hidden.menu {
+      display: none;
+    }
+
+    .masthead.segment {
+      min-height: 700px;
+      padding: 1em 0em;
+    }
+    .masthead .logo.item img {
+      margin-right: 1em;
+    }
+    .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+    }
+    .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+    }
+
+    .ui.vertical.stripe {
+      padding: 8em 0em;
+    }
+    .ui.vertical.stripe h3 {
+      font-size: 2em;
+    }
+    .ui.vertical.stripe .button + h3,
+    .ui.vertical.stripe p + h3 {
+      margin-top: 3em;
+    }
+    .ui.vertical.stripe .floated.image {
+      clear: both;
+    }
+    .ui.vertical.stripe p {
+      font-size: 1.33em;
+    }
+    .ui.vertical.stripe .horizontal.divider {
+      margin: 3em 0em;
+    }
+
+    .quote.stripe.segment {
+      padding: 0em;
+    }
+    .quote.stripe.segment .grid .column {
+      padding-top: 5em;
+      padding-bottom: 5em;
+    }
+
+  </style>
+{% endblock %}
+
+{% block content %}
+<div class="pusher">
+  <div class="ui  vertical masthead center aligned segment">
+      <div class="ui text container">
+        <h1 class="ui  header">
+            See all your Slack statistics <i class="bar chart icon"></i>
+        </h1>
+        <h2>Want to know how long people are online? Sign up:</h2>
+        <h2></h2>
+
+    </div>
+
+      <a href='{% url 'slack_auth' %}' class="ui primary button big"><i class="slack icon"></i>Login using Slack</a>
+
+      <h2></h2>
+      <p>We will only read data and never publish anything into Slack. We are also not affiliated with the Slack company in any way or form.</p>
+
+    </div>
+
+</div>
+{% endblock %}

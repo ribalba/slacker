@@ -1,0 +1,7 @@
+Django==1.10.5
+django-slack-oauth==1.0.0
+jsonfield==1.0.3
+requests==2.13.0
+six==1.10.0
+slackclient==1.0.5
+websocket-client==0.40.0

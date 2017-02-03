@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+    {% if team_slack_users|length == 0 %}
+    <div class="ui icon blue message">
+      <i class="notched circle loading icon"></i>
+      <div class="content">
+        <div class="header">
+          Just a little longer
+        </div>
+        <p>We're fetching that content for you. This might take a few minutes. Best is you come back tomorrow.</p>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="ui two column stackable grid">
+        <div class="five wide column">
+            <div class="ui segment">
+                <div class="ui divided list">
+                    {% for us in team_slack_users %}
+                        <div class="item">
+                            <img class="ui avatar image" src="{{ us.image_24 }}">
+                            <div class="content">
+                                <a class="header" href="{% url 'webfrontend.details' us.team_id us.slacker_id %}">{{ us.real_name }}</a>
+                            </div>
+                        </div>
+                    {%  endfor %}
+                </div>
+
+            </div>
+        </div>
+
+        <div class="eleven wide column">
+            <div class="ui segment">
+                {% block mainright %}
+
+                <h2>General statistics</h2>
+                <div class="ui statistics">
+                    <div class="statistic">
+                        <div class="value">
+                            <i class="user icon"></i> {{ team_slack_users|length }}
+                        </div>
+                        <div class="label">
+                            Users monitored
+                        </div>
+                    </div>
+                </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
