@@ -42,7 +42,7 @@ class Command(BaseCommand):
 
                     channel_in_db.channel_id = channel_from_slack['id']
                     channel_in_db.team_id = slack_user.extras['team_id']
-                    channel_in_db.slacker_id = slack_user
+                    channel_in_db.slack_user_access = slack_user
                     channel_in_db.name = channel_from_slack['name']
                     channel_in_db.data = json.dumps(channel_from_slack)
                     channel_in_db.save()
