@@ -6,8 +6,9 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django_slack_oauth.models import SlackUser
 
-from webfrontend.models import MySlackUser, SlackUserOnline
+from webfrontend.models import MySlackUser, SlackUserOnline,SlackMessage,SlackChannel
 
+import operator
 
 def logout(request):
     auth_logout(request)
@@ -22,6 +23,7 @@ def login(request):
 
 @login_required
 def main(request):
+
     request_user_slack = SlackUser.objects.get(slacker=request.user)
 
     team_slack_users = MySlackUser.objects.filter(team_id = request_user_slack.extras['team_id'])
@@ -37,7 +39,7 @@ def details(request, team_hash, user_hash):
 
     my_slack_user.data = json.dumps(json.loads(my_slack_user.data), indent=4)
 
-    stats = SlackUserOnline.objects.filter(slacker_id=my_slack_user).order_by("date_time")
+    stats = SlackUserOnline.objects.filter(my_slack_user=my_slack_user).order_by("date_time")
 
     stats_list = []
 
@@ -48,8 +50,36 @@ def details(request, team_hash, user_hash):
             stats_list.append("[new Date(\"" + str(s.date_time) + "\"), 0], ")
 
 
+    #Find all the channels the user posts to
+    slack_messages = SlackMessage.objects.filter(my_slack_user=my_slack_user)
+
+    wordcount={}
+    channelcount = {}
+
+    for sm in slack_messages:
+
+        for word in sm.text.split():
+            if word not in wordcount:
+                wordcount[word] = 1
+            else:
+                wordcount[word] += 1
+
+        if sm.channel_id not in channelcount:
+            channelcount[sm.channel_id] = 1
+        else:
+            channelcount[sm.channel_id] += 1
+
+    #Format the chanel names
+    channelNames = []
+    for k in channelcount:
+        sc = SlackChannel.objects.get(channel_id= k )
+        channelNames.append("['" + sc.name + "', " + str(channelcount[k]) +"], ")
+
+    sorted_x = sorted(wordcount.items(), key=operator.itemgetter(1))[-10:]
 
     return render(request, 'userdeatails.html', {
         'my_slack_user': my_slack_user,
         'stats_list': stats_list,
+        'wordcount': sorted_x,
+        'channelNames':channelNames
     })

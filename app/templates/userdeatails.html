@@ -14,19 +14,26 @@
                 <h2>{{ my_slack_user.real_name }}</h2>
 
                 <div class="ui divided list">
-                     <div class="item">
-                         <i class="heartbeat icon"></i>
-                         <div class="content">
-                             <a class="header" href="#onlinestats">Online Stats</a>
-                         </div>
-                     </div>
+                    <div class="item">
+                        <i class="heartbeat icon"></i>
+                        <div class="content">
+                            <a class="header" href="#onlinestats">Online Stats</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <i class="talk icon"></i>
+                        <div class="content">
+                            <a class="header" href="#userdetails">Channel Activity</a>
+                        </div>
+                    </div>
 
-                     <div class="item">
-                         <i class="spy icon"></i>
-                         <div class="content">
-                             <a class="header" href="#userdetails">User Details</a>
-                         </div>
-                     </div>
+
+                    <div class="item">
+                        <i class="spy icon"></i>
+                        <div class="content">
+                            <a class="header" href="#userchannel">User Details</a>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -35,52 +42,130 @@
 
         <div class="eleven wide column">
             <div class="ui segment" id="onlinestats">
-                <h2>Online Stats</h2>
+                <h2>When is a user online?</h2>
                 <script>
                     google.charts.load('current', {packages: ['corechart', 'line']});
                     google.charts.setOnLoadCallback(drawLineColors);
 
                     function drawLineColors() {
-                          var data = new google.visualization.DataTable();
-                          data.addColumn('datetime', 'X');
-                          data.addColumn('number', 'online');
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('datetime', 'X');
+                        data.addColumn('number', 'online');
 
-                          data.addRows([
-                                {%  for s in stats_list %}
-                                    {{ s|safe }}
-                                {% endfor %}
-                          ]);
+                        data.addRows([
+                            {%  for s in stats_list %}
+                                {{ s|safe }}
+                            {% endfor %}
+                        ]);
 
-                          var options = {
+                        var options = {
                             hAxis: {
-                              title: 'Time'
+                                title: 'Time'
                             },
                             vAxis: {
-                              title: 'Online',
+                                title: 'Online',
                                 minValue:0,
                                 maxValue:1,
                             },
                             legend: {position: 'none'},
-                              pointSize: 3,
+                            pointSize: 3,
 
-                          };
+                        };
 
-                          var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-                          chart.draw(data, options);
-                        }
+                        var chart = new google.visualization.LineChart(document.getElementById('chart_div_online'));
+                        chart.draw(data, options);
+                    }
 
 
                 </script>
 
 
 
-                  <div id="chart_div"></div>
+                <div id="chart_div_online"></div>
 
             </div>
+
+            <div class="ui segment" id="userchannel">
+                <h2>Channel Activity</h2>
+                <script>
+                    google.charts.load('current', {packages: ['corechart', 'bar']});
+                    google.charts.setOnLoadCallback(drawAxisTickColors);
+
+                    function drawAxisTickColors() {
+                        var data = google.visualization.arrayToDataTable([
+                            ['Channel', 'Messages Posted'],
+                            {%  for s in channelNames %}
+                                {{ s|safe }}
+                            {% endfor %}
+
+                        ]);
+
+                        var options = {
+                            hAxis: {
+                                title: 'Messages Posted',
+                                minValue: 0,
+                            },
+                            vAxis: {
+                                title: 'Channel',
+                            },
+                            legend: {position: 'none'},
+
+                        };
+                        var chart = new google.visualization.BarChart(document.getElementById('chart_div_channel'));
+                        chart.draw(data, options);
+                    }
+
+                </script>
+
+                <div id="chart_div_channel"></div>
+
+
+            </div>
+
+            <div class="ui segment" id="usermostusedwords">
+                <h2>Most used words</h2>
+                            <script>
+                    google.charts.load('current', {packages: ['corechart', 'bar']});
+                    google.charts.setOnLoadCallback(drawAxisTickColors);
+
+                    function drawAxisTickColors() {
+                        var data = google.visualization.arrayToDataTable([
+                            ['Word', 'Written'],
+                    {%  for s in wordcount %}
+                        ['{{ s.0 }}', {{ s.1 }}],
+                    {% endfor %}
+
+                        ]);
+
+                        var options = {
+                            hAxis: {
+                                title: 'Word used',
+                                minValue: 0,
+                            },
+                            vAxis: {
+                                title: 'Word',
+                            },
+                            legend: {position: 'none'},
+
+                        };
+                        var chart = new google.visualization.BarChart(document.getElementById('chart_div_words'));
+                        chart.draw(data, options);
+                    }
+
+                </script>
+
+                <div id="chart_div_words"></div>
+
+
+
+            </div>
+
             <div class="ui segment" id="userdetails">
                 <h2>User Details</h2>
                 <pre>{{ my_slack_user.data }}</pre>
             </div>
+
+
 
         </div>
     </div>
