@@ -26,6 +26,12 @@
                             <a class="header" href="#userdetails">Channel Activity</a>
                         </div>
                     </div>
+                    <div class="item">
+                        <i class="smile icon"></i>
+                        <div class="content">
+                            <a class="header" href="#sentiment">Positive or Negative Messages</a>
+                        </div>
+                    </div>
 
 
                     <div class="item">
@@ -159,6 +165,41 @@
 
 
             </div>
+
+            <div class="ui segment" id="sentiment">
+                <h2>Positive or negative messages</h2>
+                <div class="ui statistics">
+                  <div class="green statistic">
+                    <div class="value">
+                      <i class="smile icon"></i> {{ sentimentcounter.positive }}
+                    </div>
+                    <div class="label">
+                      Positive
+                    </div>
+                  </div>
+                  <div class="red statistic">
+                    <div class="value">
+                      <i class="frown icon"></i> {{ sentimentcounter.negative }}
+                    </div>
+                    <div class="label">
+                      Negative
+                    </div>
+                  </div>
+                  <div class="grey statistic">
+                    <div class="value">
+                      <i class="meh icon"></i> {{ sentimentcounter.neutral }}
+                    </div>
+                    <div class="label">
+                      Neutral
+                    </div>
+                  </div>
+
+                </div>
+
+
+
+            </div>
+
 
             <div class="ui segment" id="userdetails">
                 <h2>User Details</h2>

@@ -55,6 +55,7 @@ def details(request, team_hash, user_hash):
 
     wordcount={}
     channelcount = {}
+    sentimentcounter = {}
 
     for sm in slack_messages:
 
@@ -69,6 +70,12 @@ def details(request, team_hash, user_hash):
         else:
             channelcount[sm.channel_id] += 1
 
+        if sm.sentiment not in sentimentcounter:
+            sentimentcounter[sm.sentiment] = 1
+        else:
+            sentimentcounter[sm.sentiment] += 1
+
+
     #Format the chanel names
     channelNames = []
     for k in channelcount:
@@ -81,5 +88,6 @@ def details(request, team_hash, user_hash):
         'my_slack_user': my_slack_user,
         'stats_list': stats_list,
         'wordcount': sorted_x,
-        'channelNames':channelNames
+        'channelNames':channelNames,
+        'sentimentcounter':sentimentcounter
     })

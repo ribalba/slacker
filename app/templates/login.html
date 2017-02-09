@@ -161,6 +161,17 @@ week, and month.
     </div>
   </div>
 
+<div class="ui imprint_modal modal">
+  <div class="header">Imprint</div>
+  <div class="content">
+    <h2>Hoffmann & Specka GbR</h2>
+    <p>Technology Ven- tures, c/o Altius Ventures GmbH, <br>
+        Ritterstrasse 12-14<br>
+        10969 Berlin</p>
+    <p>contact@slacker.team</p>
+  </div>
+</div>
+
 
 
   <div class="ui vertical footer segment">
@@ -169,16 +180,23 @@ week, and month.
         <div class="three wide column">
           <h4 class="ui  header">About</h4>
           <div class="ui  link list">
-            <a href="#" class="item">Contact Us</a>
-            <a href="#" class="item">Privacy Policy</a>
-            <a href="#" class="item">Terms of Service</a>
+            <a href="#" class="item" id="contact_button">Contact Us/ Impressum</a>
+            <a href="/static/PDF_SLACKER_Privacy-Policy_DE_EN.pdf" class="item" target="_blank">Privacy Policy</a>
+            <a href="/static/PDF_Slacker_AGB_EN_DE.pdf" class="item" target="_blank">Terms of Service</a>
           </div>
         </div>
 
       </div>
     </div>
   </div>
+<script>
+    $('#contact_button').click(function(){
+            $('.imprint_modal')
+  .modal('show')
+;
 
+    })
+</script>
 
 </div>
 {% endblock %}

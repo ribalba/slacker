@@ -38,3 +38,4 @@ class SlackMessage(models.Model):
     is_starred = models.BooleanField(default=False)
     reactions = models.TextField(null=True, default=None)
     pinned_to = models.TextField(null=True, default=None)
+    sentiment = models.CharField(max_length=30, default=None, null=True)
