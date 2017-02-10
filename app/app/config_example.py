@@ -9,5 +9,5 @@ SENTIMENT_KEY = 'GET FROM http://sentigem.com/'
 
 #This you should not need to modify
 SLACK_SCOPE = 'users:read,users:read.email,channels:read,channels:history,dnd:read,emoji:read,' \
-              'files:read,groups:history,groups:read,pins:read,reactions:read,' \
+              'files:read,pins:read,reactions:read,' \
               'reminders:read,search:read,stars:read,team:read'

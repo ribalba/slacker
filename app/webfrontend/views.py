@@ -1,5 +1,9 @@
 import json
+import operator
 
+from datetime import datetime, timedelta
+
+from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout as auth_logout
@@ -8,7 +12,6 @@ from django_slack_oauth.models import SlackUser
 
 from webfrontend.models import MySlackUser, SlackUserOnline,SlackMessage,SlackChannel
 
-import operator
 
 def logout(request):
     auth_logout(request)
@@ -20,6 +23,12 @@ def login(request):
         return HttpResponseRedirect('main/')
 
     return render(request, 'login.html')
+
+def check_team_auth(team_id, request):
+    su = get_object_or_404(SlackUser, slacker=request.user)
+    if su.extras['team_id'] != team_id:
+        raise Http404('Team id not found with your user')
+
 
 @login_required
 def main(request):
@@ -35,6 +44,8 @@ def main(request):
 @login_required
 def details(request, team_hash, user_hash):
 
+    check_team_auth(team_hash, request)
+
     my_slack_user = get_object_or_404( MySlackUser, team_id = team_hash, slacker_id = user_hash)
 
     my_slack_user.data = json.dumps(json.loads(my_slack_user.data), indent=4)
@@ -48,6 +59,11 @@ def details(request, team_hash, user_hash):
             stats_list.append("[new Date(\"" + str(s.date_time) + "\"), 1], ")
         else:
             stats_list.append("[new Date(\"" + str(s.date_time) + "\"), 0], ")
+
+
+    online_last_month = SlackUserOnline.objects.filter(my_slack_user=my_slack_user, date_time__gte=datetime.now()-timedelta(days=30)).count()/4
+    online_last_week = SlackUserOnline.objects.filter(my_slack_user=my_slack_user, date_time__gte=datetime.now()-timedelta(days=7)).count()/4
+
 
 
     #Find all the channels the user posts to
@@ -89,5 +105,7 @@ def details(request, team_hash, user_hash):
         'stats_list': stats_list,
         'wordcount': sorted_x,
         'channelNames':channelNames,
-        'sentimentcounter':sentimentcounter
+        'sentimentcounter':sentimentcounter,
+        'online_last_month':online_last_month,
+        'online_last_week':online_last_week
     })
