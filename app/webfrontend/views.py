@@ -3,6 +3,7 @@ import operator
 
 from datetime import datetime, timedelta
 
+import pytz
 from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
@@ -61,8 +62,8 @@ def details(request, team_hash, user_hash):
             stats_list.append("[new Date(\"" + str(s.date_time) + "\"), 0], ")
 
 
-    online_last_month = SlackUserOnline.objects.filter(my_slack_user=my_slack_user, status="active", date_time__gte=datetime.now()-timedelta(days=30)).count()/6
-    online_last_week = SlackUserOnline.objects.filter(my_slack_user=my_slack_user, status="active", date_time__gte=datetime.now()-timedelta(days=7)).count()/6
+    online_last_month = SlackUserOnline.objects.filter(my_slack_user=my_slack_user, status="active", date_time__gte=datetime.now(tz=pytz.UTC)-timedelta(days=30)).count()/6
+    online_last_week = SlackUserOnline.objects.filter(my_slack_user=my_slack_user, status="active", date_time__gte=datetime.now(tz=pytz.UTC)-timedelta(days=7)).count()/6
 
 
 
