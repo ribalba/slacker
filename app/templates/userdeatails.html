@@ -100,7 +100,7 @@
                 <div class="ui statistics">
                   <div class=" statistic">
                     <div class="value">
-                      {{ online_last_week }} h
+                      {{ online_last_week|floatformat:"0" }} h
                     </div>
                     <div class="label">
                       Online last week
@@ -108,7 +108,7 @@
                   </div>
                   <div class=" statistic">
                     <div class="value">
-                      {{ online_last_month }} h
+                      {{ online_last_month|floatformat:"0" }} h
                     </div>
                     <div class="label">
                       Online last month
