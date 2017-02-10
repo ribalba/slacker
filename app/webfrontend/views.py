@@ -61,8 +61,8 @@ def details(request, team_hash, user_hash):
             stats_list.append("[new Date(\"" + str(s.date_time) + "\"), 0], ")
 
 
-    online_last_month = SlackUserOnline.objects.filter(my_slack_user=my_slack_user, date_time__gte=datetime.now()-timedelta(days=30)).count()/4
-    online_last_week = SlackUserOnline.objects.filter(my_slack_user=my_slack_user, date_time__gte=datetime.now()-timedelta(days=7)).count()/4
+    online_last_month = SlackUserOnline.objects.filter(my_slack_user=my_slack_user, date_time__gte=datetime.now()-timedelta(days=30)).count()/6
+    online_last_week = SlackUserOnline.objects.filter(my_slack_user=my_slack_user, date_time__gte=datetime.now()-timedelta(days=7)).count()/6
 
 
 
