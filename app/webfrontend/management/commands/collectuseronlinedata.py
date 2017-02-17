@@ -45,7 +45,7 @@ class Command(BaseCommand):
                         if 'real_name' in user_from_slack and user_from_slack['real_name'] != '':
                             slackuser_in_db.real_name = user_from_slack['real_name']
                         else:
-                            user_from_slack['name']
+                            slackuser_in_db.real_name = user_from_slack['name']
                         slackuser_in_db.image_24 = user_from_slack['profile']['image_24']
                         slackuser_in_db.data = json.dumps(user_from_slack)
                         slackuser_in_db.save()
