@@ -28,7 +28,7 @@ class SlackMessage(models.Model):
     channel_id = models.CharField(max_length=20, db_index=True)
     slack_user_access = models.ForeignKey(SlackUser)
     my_slack_user = models.ForeignKey(MySlackUser)
-    ts = models.DateTimeField()
+    ts = models.DateTimeField(db_index=True)
     ts_original = models.CharField(max_length=30)
     type = models.CharField(max_length=50)
     text = models.TextField()

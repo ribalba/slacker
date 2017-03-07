@@ -2,204 +2,247 @@
 
 {% block css %}
 
-  <style type="text/css">
+    <style type="text/css">
 
-    .masthead.segment {
-      min-height: 500px;
-      padding: 1em 0em;
-    }
+        .masthead.segment {
+            min-height: 500px;
+            padding: 1em 0em;
+        }
 
-    .masthead .logo.item img {
-      margin-right: 1em;
-    }
-    .masthead .ui.menu .ui.button {
-      margin-left: 0.5em;
-    }
-    .masthead h1.ui.header {
-      margin-top: 1em;
-      margin-bottom: 0em;
-      font-size: 4em;
-      font-weight: normal;
-    }
-    .masthead h2 {
-      font-size: 1.7em;
-      font-weight: normal;
-    }
+        .masthead .logo.item img {
+            margin-right: 1em;
+        }
+        .masthead .ui.menu .ui.button {
+            margin-left: 0.5em;
+        }
+        .masthead h1.ui.header {
+            margin-top: 1em;
+            margin-bottom: 0em;
+            font-size: 4em;
+            font-weight: normal;
+        }
+        .masthead h2 {
+            font-size: 1.7em;
+            font-weight: normal;
+        }
 
-    .ui.vertical.stripe {
-      padding: 8em 0em;
-    }
-    .ui.vertical.stripe h3 {
-      font-size: 2em;
-    }
-    .ui.vertical.stripe .button + h3,
-    .ui.vertical.stripe p + h3 {
-      margin-top: 3em;
-    }
-    .ui.vertical.stripe .floated.image {
-      clear: both;
-    }
-    .ui.vertical.stripe p {
-      font-size: 1.33em;
-    }
-    .ui.vertical.stripe .horizontal.divider {
-      margin: 3em 0em;
-    }
+        .ui.vertical.stripe {
+            padding: 8em 0em;
+        }
+        .ui.vertical.stripe h3 {
+            font-size: 2em;
+        }
+        .ui.vertical.stripe .button + h3,
+        .ui.vertical.stripe p + h3 {
+            margin-top: 3em;
+        }
+        .ui.vertical.stripe .floated.image {
+            clear: both;
+        }
+        .ui.vertical.stripe p {
+            font-size: 1.33em;
+        }
+        .ui.vertical.stripe .horizontal.divider {
+            margin: 3em 0em;
+        }
 
-    .quote.stripe.segment {
-      padding: 0em;
-    }
-    .quote.stripe.segment .grid .column {
-      padding-top: 5em;
-      padding-bottom: 5em;
-    }
+        .quote.stripe.segment {
+            padding: 0em;
+        }
+        .quote.stripe.segment .grid .column {
+            padding-top: 5em;
+            padding-bottom: 5em;
+        }
 
-    .footer.segment {
-      padding: 5em 0em;
-    }
+        .footer.segment {
+            padding: 5em 0em;
+        }
 
-    .secondary.pointing.menu .toc.item {
-      display: none;
-    }
+        .secondary.pointing.menu .toc.item {
+            display: none;
+        }
 
-    @media only screen and (max-width: 700px) {
+        @media only screen and (max-width: 700px) {
 
-      .masthead.segment {
-        min-height: 350px;
-      }
-      .masthead h1.ui.header {
-        font-size: 2em;
-        margin-top: 1.5em;
-      }
-      .masthead h2 {
-        margin-top: 0.5em;
-        font-size: 1.5em;
-      }
-    }
+            .masthead.segment {
+                min-height: 350px;
+            }
+            .masthead h1.ui.header {
+                font-size: 2em;
+                margin-top: 1.5em;
+            }
+            .masthead h2 {
+                margin-top: 0.5em;
+                font-size: 1.5em;
+            }
+        }
 
-  </style>
+    </style>
 {% endblock %}
 
 {% block content %}
-<div class="pusher">
-  <div class="ui vertical masthead center aligned segment">
-      <div class="ui text container">
-        <h1 class="ui  header">
-            Slacker <i class="bar chart icon"></i>
-        </h1>
-        <h2> A customizable and smart team activity monitoring solution,
-integrated seamlessly with Slack</h2>
-        <h2></h2>
+    <div class="pusher">
+        <div class="ui vertical masthead center aligned segment">
+            <div class="ui text container">
+                <h1 class="ui  header">
+                    Slacker <i class="bar chart icon"></i>
+                </h1>
+                <h2> A customizable and smart team activity monitoring solution,
+                    integrated seamlessly with Slack</h2>
+                <h2></h2>
+
+            </div>
+
+<div class="ui modal permissionmodal">
+  <i class="close icon"></i>
+  <div class="header">
+    Permissions
+  </div>
+  <div class="image content">
+
+    <div class="ui medium image">
+      <i class="protect icon"></i>
+    </div>
+    <div class="description">
+      <div class="ui header">Slack will have a scary screen for you.</div>
+      <p>To do all our analysis we need get some permissions from you. These look quite a lot but are actually just
+      so that we can find out about your users and channels</p>
+                  <h3>Our promise:</h3>
+            <div class="ui list">
+                <div class="item">We will only read data and not publish anything into Slack!</div>
+                <div class="item">We can not access direct messages or private chats!</div>
+                <div class="item">All your data will be on German servers and never leave the coutry!</div>
+
+            </div>
 
     </div>
-
+  </div>
+  <div class="actions">
+    <div class="ui black deny button">
+      Nope
+    </div>
       <a href='{% url 'slack_auth' %}' class="ui primary button big"><i class="slack icon"></i>Login using Slack</a>
-
-      <h3>Our promise:</h3>
-      <div class="ui list">
-          <div class="item">We will only read data and not publish anything into Slack!</div>
-          <div class="item">We will also never look into direct messages or private chats!</div>
-          <div class="item">We are not affiliated with the <a href="https://slack.com/" target="_blank">Slack</a> company in any way or form!</div>
-      </div>
-
-    </div>
-
-  <div class="ui vertical stripe segment">
-    <div class="ui middle aligned stackable grid container">
-      <div class="row">
-        <div class="eight wide column">
-          <h3 class="ui header">Monitors Team- and Individual Activity</h3>
-          <p>Through the dashboard, a manager can
-manage all team members and visually understand
-key metrics such as total time worked by day,
-week, and month.
-</p>
-          <h3 class="ui header">1-Click Setup</h3>
-          <p>SLACKER integrates easily with Slack, as a one-click solution. It only takes 30 seconds! Perfect and easy to setup activity monitoring, also for distributed teams!</p>
-        </div>
-        <div class="six wide right floated column">
-            <i class="massive teal dashboard icon"></i>
-        </div>
-      </div>
-    </div>
-
-      <div class="ui middle aligned stackable grid container">
-      <div class="row">
-        <div class="six wide right floated column">
-              <i class="massive teal heartbeat icon"></i>
-
-        </div>
-
-        <div class="eight wide column">
-          <h3 class="ui header">Insights on all team members working hours</h3>
-          <p>When we work we are online in Slack. SLACKER helps managers to understand who from their team goes the extra mile and who not, so slacking is a thing from the past and extra effort can be rewarded!
-.
-</p>
-          <h3 class="ui header">Powerful Activity Analytics Dashboard</h3>
-          <p>Admins and Managers can access all consolidated team insights and individual team members information via the powerful SLACKER Dashboard and receive automated Slack notifications in their private channels if a team member didn’t meet their required working hours of if someone works unsustainable and unhealthy amounts, so managers can intervene.</p>
-        </div>
-      </div>
-    </div>
-
-
-
   </div>
-
-
-  <div class="ui vertical stripe quote segment">
-    <div class="ui equal width stackable internally celled grid">
-      <div class="center aligned row">
-        <div class="column">
-          <h3>"Finally Transparency for global, distributed teams!"</h3>
-          <p>Didi Hoffmann, CEO RebelProject</p>
-        </div>
-        <div class="column">
-          <h3>"SLACKER helps me identify our high performers and compensate them fairly"</h3>
-          <p>Simon Specka, CEO ZenMate</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-
-  <div class="ui vertical footer segment">
-    <div class="ui container">
-      <div class="ui stackable divided equal height stackable grid">
-        <div class="three wide column">
-          <h4 class="ui  header">About</h4>
-          <div class="ui  link list">
-            <a href="#" class="item" id="contact_button">Contact Us/ Impressum</a>
-            <a href="/static/PDF_SLACKER_Privacy-Policy_DE_EN.pdf" class="item" target="_blank">Privacy Policy</a>
-            <a href="/static/PDF_Slacker_AGB_EN_DE.pdf" class="item" target="_blank">Terms of Service</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-    <div class="ui imprint_modal modal">
-      <div class="header">Imprint</div>
-      <div class="content">
-        <h2>Hoffmann & Specka GbR</h2>
-        <p>Technology Ventures, c/o Altius Ventures GmbH, <br>
-            Ritterstrasse 12-14<br>
-            10969 Berlin</p>
-        <p>contact@slacker.team</p>
-      </div>
-    </div>
-
-
-    <script>
-        $('#contact_button').click(function(){
-                $('.imprint_modal')
-      .modal('show')
-    ;
-
-        })
-    </script>
-
 </div>
+
+
+            <button class="ui primary button big signupslack"><i class="slack icon"></i>Login using Slack</button>
+            <script>
+                $(".signupslack").click(function(){
+                                    $('.permissionmodal').modal('show');
+
+                })
+            </script>
+
+
+
+
+
+            <h3>Our promise:</h3>
+            <div class="ui list">
+                <div class="item">We will only read data and not publish anything into Slack!</div>
+                <div class="item">We will also never look into direct messages or private chats!</div>
+                <div class="item">We are not affiliated with the <a href="https://slack.com/" target="_blank">Slack</a> company in any way or form!</div>
+            </div>
+
+        </div>
+
+        <div class="ui vertical stripe segment">
+            <div class="ui middle aligned stackable grid container">
+                <div class="row">
+                    <div class="eight wide column">
+                        <h3 class="ui header">Monitors Team- and Individual Activity</h3>
+                        <p>Through the dashboard, a manager can
+                            manage all team members and visually understand
+                            key metrics such as total time worked by day,
+                            week, and month.
+                        </p>
+                        <h3 class="ui header">1-Click Setup</h3>
+                        <p>SLACKER integrates easily with Slack, as a one-click solution. It only takes 30 seconds! Perfect and easy to setup activity monitoring, also for distributed teams!</p>
+                    </div>
+                    <div class="six wide right floated column">
+                        <i class="massive teal dashboard icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui middle aligned stackable grid container">
+                <div class="row">
+                    <div class="six wide right floated column">
+                        <i class="massive teal heartbeat icon"></i>
+
+                    </div>
+
+                    <div class="eight wide column">
+                        <h3 class="ui header">Insights on all team members working hours</h3>
+                        <p>When we work we are online in Slack. SLACKER helps managers to understand who from their team goes the extra mile and who not, so slacking is a thing from the past and extra effort can be rewarded!
+                            .
+                        </p>
+                        <h3 class="ui header">Powerful Activity Analytics Dashboard</h3>
+                        <p>Admins and Managers can access all consolidated team insights and individual team members information via the powerful SLACKER Dashboard and receive automated Slack notifications in their private channels if a team member didn’t meet their required working hours of if someone works unsustainable and unhealthy amounts, so managers can intervene.</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+        <div class="ui vertical stripe quote segment">
+            <div class="ui equal width stackable internally celled grid">
+                <div class="center aligned row">
+                    <div class="column">
+                        <h3>"Finally Transparency for global, distributed teams!"</h3>
+                        <p>Didi Hoffmann, CEO RebelProject</p>
+                    </div>
+                    <div class="column">
+                        <h3>"SLACKER helps me identify our high performers and compensate them fairly"</h3>
+                        <p>Simon Specka, CEO ZenMate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="ui vertical footer segment">
+            <div class="ui container">
+                <div class="ui stackable divided equal height stackable grid">
+                    <div class="three wide column">
+                        <h4 class="ui  header">About</h4>
+                        <div class="ui  link list">
+                            <a href="#" class="item" id="contact_button">Contact Us/ Impressum</a>
+                            <a href="/static/PDF_SLACKER_Privacy-Policy_DE_EN.pdf" class="item" target="_blank">Privacy Policy</a>
+                            <a href="/static/PDF_Slacker_AGB_EN_DE.pdf" class="item" target="_blank">Terms of Service</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="ui imprint_modal modal">
+            <div class="header">Imprint</div>
+            <div class="content">
+                <h2>Hoffmann & Specka GbR</h2>
+                <p>Technology Ventures, c/o Altius Ventures GmbH, <br>
+                    Ritterstrasse 12-14<br>
+                    10969 Berlin</p>
+                <p>contact@slacker.team</p>
+            </div>
+        </div>
+
+
+        <script>
+            $('#contact_button').click(function(){
+                $('.imprint_modal')
+                        .modal('show')
+                ;
+
+            })
+        </script>
+
+    </div>
 {% endblock %}

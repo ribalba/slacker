@@ -37,9 +37,13 @@ def main(request):
     request_user_slack = SlackUser.objects.get(slacker=request.user)
 
     team_slack_users = MySlackUser.objects.filter(team_id = request_user_slack.extras['team_id'])
+    team_slack_channels_count = SlackChannel.objects.filter(team_id = request_user_slack.extras['team_id']).count()
+    team_slack_message_count = SlackMessage.objects.filter(my_slack_user__team_id = request_user_slack.extras['team_id']).count()
 
     return render(request, 'main.html', {
-        'team_slack_users': team_slack_users
+        'team_slack_users': team_slack_users,
+        'team_slack_channels_count': team_slack_channels_count,
+        'team_slack_message_count': team_slack_message_count
     })
 
 @login_required
@@ -73,8 +77,14 @@ def details(request, team_hash, user_hash):
     wordcount={}
     channelcount = {}
     sentimentcounter = {}
+    hourcounter = {}
 
     for sm in slack_messages:
+
+        if sm.ts.hour in hourcounter:
+            hourcounter[sm.ts.hour] = hourcounter[sm.ts.hour] + 1
+        else:
+            hourcounter[sm.ts.hour] = 1
 
         for word in sm.text.split():
             if word not in wordcount:
@@ -106,6 +116,7 @@ def details(request, team_hash, user_hash):
         'stats_list': stats_list,
         'wordcount': sorted_x,
         'channelNames':channelNames,
+        'hourcounter':sorted(hourcounter.items()) ,
         'sentimentcounter':sentimentcounter,
         'online_last_month':online_last_month,
         'online_last_week':online_last_week

@@ -35,13 +35,13 @@
                         </div>
                     </div>
 
-
                     <div class="item">
-                        <i class="spy icon"></i>
+                        <i class="calendar icon"></i>
                         <div class="content">
-                            <a class="header" href="#userdetails">User Details</a>
+                            <a class="header" href="#userposttimes">Post times</a>
                         </div>
                     </div>
+
 
                 </div>
 
@@ -230,14 +230,40 @@
 
             </div>
 
+            <div class="ui segment" id="userposttimes">
+                <h2>User post tines</h2>
+                            <script>
+                    google.charts.load('current', {packages: ['corechart', 'bar']});
+                    google.charts.setOnLoadCallback(drawAxisTickColors);
 
+                    function drawAxisTickColors() {
+                        var data = google.visualization.arrayToDataTable([
+                            ['Hour', 'Count'],
+                    {%  for k,v in hourcounter %}
+                        ['{{ k }}', {{ v}}],
+                    {% endfor %}
 
-            <div class="ui segment" id="userdetails">
-                <h2>User Details</h2>
-                <pre>{{ my_slack_user.data }}</pre>
+                        ]);
+
+                        var options = {
+                            hAxis: {
+                                title: 'Messages sent (count)',
+                                minValue: 0,
+                            },
+                            vAxis: {
+                                title: 'Hour (24)',
+                            },
+                            legend: {position: 'none'},
+
+                        };
+                        var chart = new google.visualization.BarChart(document.getElementById('chart_div_wordsx'));
+                        chart.draw(data, options);
+                    }
+
+                </script>
+
+                <div id="chart_div_wordsx"></div>
             </div>
-
-
 
         </div>
     </div>
